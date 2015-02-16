@@ -26,16 +26,20 @@
 
       for(var i in queryObj){
 
-        if(first) query+='?'
-        else query+='&'
+        if(first){
+          query+='?';
+          first=0;
+        }else{
+          query+='&'
+        }
 
         if(queryObj.hasOwnProperty(i)){
-          query+= i+"="+queryObj[i];
+          query+= i+"="+encodeURIComponent(queryObj[i]);
         }
 
       } 
 
-      return encodeURIComponent(query)
+      return query
     }
 
     function isArray(arr){
