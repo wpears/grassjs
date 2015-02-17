@@ -14,7 +14,26 @@ window.grass = function(){
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url);
 
-    xhr.onreadystatechange = function(){
+    xhr.onreadystatechange = makeReadyFn(cb);
+
+    xhr.send();
+  } 
+
+
+  function postGeo(url, params, cb){
+    var msgBody = map(params,function(addr){return encodeURIComponent(addr)}).join('&');
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', url);
+
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Content-length", msgBody.length);
+    xhr.onreadystatechange = makeReadyFn(cb);
+    xhr.send(msgBody); 
+  }
+
+  function makeReadyFn(cb){
+    return function(){
       if(this.readyState === 4){
         if(this.status === 200){
           cb(null, this.responseText);
@@ -23,19 +42,7 @@ window.grass = function(){
         }
       }
     }
-
-    xhr.send();
-  } 
-
-
-  function postGeo(url, params, cb){
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', url);
-    
-    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    http.setRequestHeader("Content-length", params.length);
   }
-
 
   //Return possible results when typing
   function getSuggestions(addr, cb){
@@ -86,6 +93,7 @@ window.grass = function(){
     for(var i=0; i<len; i++){
       mapped[i] = fn(arr[i],i);
     }
+    return mapped;
   }
 
 
