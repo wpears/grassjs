@@ -11,18 +11,22 @@ window.grass = function(){
 
 
   function getGeo(url, cb){
-    var xhr = new XMLHTTPRequest();
+    var xhr = new XMLHttpRequest();
     xhr.open('GET', url);
+
     xhr.onreadystatechange = function(){
       if(this.readyState === 4){
         if(this.status === 200){
           cb(null, this.responseText);
         }else{
-          cb(new Error(this.status),this.responseText);
+          cb(new Error(this.status + ". Uh-oh."));
         }
       }
     }
+
+    xhr.send();
   } 
+
 
   function postGeo(url, cb){
 
