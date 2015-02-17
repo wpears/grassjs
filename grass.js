@@ -27,7 +27,6 @@ window.grass = function(){
     xhr.open('POST', url);
 
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Content-length", msgBody.length);
     xhr.onreadystatechange = makeReadyFn(cb);
     xhr.send(msgBody); 
   }
@@ -83,7 +82,7 @@ window.grass = function(){
 
 
   function isArray(arr){
-    return Object.prototype.toString.call(arg) === '[object Array]';
+    return Object.prototype.toString.call(arr) === '[object Array]';
   }
 
 
