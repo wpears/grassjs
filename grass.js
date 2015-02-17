@@ -3,10 +3,12 @@ window.grass = function(){
   var endpoint = 'https://placeholder.gov/endpoint/geocode';
 
   function geocode(addr, cb){
-    if(isArray(addr)){
-      return postGeo(buildQuery(), addr, cb);
-    } 
     return getGeo(buildQuery({addr:addr}), cb);
+  }
+   
+
+  function geocodeJSON(addrs, cb){
+    return postGeo(buildQuery(), addrs, cb); 
   }
 
 
@@ -20,15 +22,13 @@ window.grass = function(){
   } 
 
 
-  function postGeo(url, params, cb){
-    var msgBody = map(params,function(addr){return encodeURIComponent(addr)}).join('&');
-
+  function postGeo(url, json, cb){
     var xhr = new XMLHttpRequest();
     xhr.open('POST', url);
 
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Content-type", "application/json");
     xhr.onreadystatechange = makeReadyFn(cb);
-    xhr.send(msgBody); 
+    xhr.send(json); 
   }
 
   function makeReadyFn(cb){
@@ -86,20 +86,11 @@ window.grass = function(){
   }
 
 
-  function map(arr, fn){
-    var len = arr.length;
-    var mapped = new Array(len); 
-    for(var i=0; i<len; i++){
-      mapped[i] = fn(arr[i],i);
-    }
-    return mapped;
-  }
-
-
   return{
     geocode : geocode,
+    geocodeJSON : geocodeJSON,
+    geocodeCSV: geocodeCSV,
     reverseGeocode: reverseGeocode,
-    getSuggestions: getSuggestions,
-    geocodeCSV: geocodeCSV
+    getSuggestions: getSuggestions
   }
 }();
