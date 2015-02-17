@@ -1,56 +1,65 @@
-;(function(){
-  window.grass = function(){
-         
-    var endpoint = 'https://endpoint.gov/geocode'
+window.grass = function(){
 
-    function geocode(addr, cb){
-      if(isArray(addr)){
-        return postGeo(addr, cb);
-      } 
-      return getGeo(buildQuery({addr:addr}), cb);
-    }
-    
-    function getGeo(url, cb){
-      var xhr = new XMLHTTPRequest();
-      xhr.open(
+  var endpoint = 'https://endpoint.gov/geocode';
+
+  function geocode(addr, cb){
+    if(isArray(addr)){
+      return postGeo(addr, cb);
     } 
-    
-    //Return possible results when typing
-    function getSuggestions(addr, cb){
+    return getGeo(buildQuery({addr:addr}), cb);
+  }
 
-    }
 
-    function buildQuery(queryObj){
-      var query = endpoint;
-      var first = 1; 
+  function getGeo(url, cb){
+    var xhr = new XMLHTTPRequest();
+  } 
 
-      for(var i in queryObj){
 
-        if(first){
-          query+='?';
-          first=0;
-        }else{
-          query+='&'
-        }
+  //Return possible results when typing
+  function getSuggestions(addr, cb){
+    return geoGeo(buildQuery({addr:addr,suggestions:1}), cb); 
+  }
 
-        if(queryObj.hasOwnProperty(i)){
-          query+= i+"="+encodeURIComponent(queryObj[i]);
-        }
 
-      } 
+  function buildQuery(queryObj){
+    var query = endpoint;
+    var first = 1; 
 
-      return query
-    }
+    for(var i in queryObj){
 
-    function isArray(arr){
-      return Object.prototype.toString.call(arg) === '[object Array]';
-    }
+      if(first){
+        query+='?';
+        first=0;
+      }else{
+        query+='&'
+      }
 
-    return{
-      geocode : geocode,
-      reverseGeocode: reverseGeocode,
-      getSuggestions: getSuggestions,
-      geocodeCSV: geocodeCSV
-    }
-  }();
-})()
+      if(queryObj.hasOwnProperty(i)){
+        query+= i+"="+encodeURIComponent(queryObj[i]);
+      }
+
+    } 
+
+    return query
+  }
+
+
+
+  function reverseGeocode(){}
+
+
+  function geocodeCSV(){}
+
+
+  function isArray(arr){
+    return Object.prototype.toString.call(arg) === '[object Array]';
+  }
+
+
+  return{
+    geocode : geocode,
+    reverseGeocode: reverseGeocode,
+    getSuggestions: getSuggestions,
+    geocodeCSV: geocodeCSV
+  }
+}();
