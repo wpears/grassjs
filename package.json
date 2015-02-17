@@ -1,0 +1,28 @@
+{
+  "name": "grassjs",
+  "version": "0.0.1",
+  "description": "Tentative clientside geocoding api",
+  "main": "server.js",
+  "dependencies": {
+    "restify": "^2.8.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wpears/grassjs"
+  },
+  "keywords": [
+    "geocoding",
+    "restify"
+  ],
+  "author": "Wyatt Pearsall",
+  "license": "CC0",
+  "bugs": {
+    "url": "https://github.com/wpears/grassjs/issues"
+  },
+  "homepage": "https://github.com/wpears/grassjs"
+}
