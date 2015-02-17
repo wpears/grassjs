@@ -4,7 +4,7 @@ window.grass = function(){
 
   function geocode(addr, cb){
     if(isArray(addr)){
-      return postGeo(addr, cb);
+      return postGeo(buildQuery(), addr, cb);
     } 
     return getGeo(buildQuery({addr:addr}), cb);
   }
@@ -28,8 +28,12 @@ window.grass = function(){
   } 
 
 
-  function postGeo(url, cb){
-
+  function postGeo(url, params, cb){
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', url);
+    
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.setRequestHeader("Content-length", params.length);
   }
 
 
@@ -40,6 +44,8 @@ window.grass = function(){
 
 
   function buildQuery(queryObj){
+    if(!queryObj) return endpoint;
+
     var query = endpoint;
     var first = 1; 
 
@@ -71,6 +77,15 @@ window.grass = function(){
 
   function isArray(arr){
     return Object.prototype.toString.call(arg) === '[object Array]';
+  }
+
+
+  function map(arr, fn){
+    var len = arr.length;
+    var mapped = new Array(len); 
+    for(var i=0; i<len; i++){
+      mapped[i] = fn(arr[i],i);
+    }
   }
 
 
