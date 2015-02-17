@@ -1,6 +1,6 @@
 window.grass = function(){
 
-  var endpoint = 'https://endpoint.gov/geocode';
+  var endpoint = 'https://placeholder.gov/endpoint/geocode';
 
   function geocode(addr, cb){
     if(isArray(addr)){
@@ -12,7 +12,21 @@ window.grass = function(){
 
   function getGeo(url, cb){
     var xhr = new XMLHTTPRequest();
+    xhr.open('GET', url);
+    xhr.onreadystatechange = function(){
+      if(this.readyState === 4){
+        if(this.status === 200){
+          cb(null, this.responseText);
+        }else{
+          cb(new Error(this.status),this.responseText);
+        }
+      }
+    }
   } 
+
+  function postGeo(url, cb){
+
+  }
 
 
   //Return possible results when typing
