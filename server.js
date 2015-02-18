@@ -4,14 +4,17 @@ var server = restify.createServer();
 
 
 server.post('/geocode', function(req, res, next){
+  console.log("POST");
   req.pipe(process.stdout);
-  res.send("got your post");
+  res.send('[{"lat":-37.81,"lon":121.16}]');
  next(); 
 });
 
+
 server.get('/geocode/', function(req, res, next){
+  console.log("GET");
   req.pipe(process.stdout); 
-  res.send("got your get"); 
+  res.send('{"lat":37.81,"lon":-121.16}');
   next();
 });
 
