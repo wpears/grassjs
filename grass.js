@@ -1,6 +1,6 @@
 window.grass = function(){
 
-  var endpoint = 'https://placeholder.gov/endpoint/geocode';
+  var endpoint = 'http://localhost:1337/geocode';
 
   function geocode(addr, cb){
     return getGeo(buildQuery({addr:addr}), cb);
@@ -8,6 +8,8 @@ window.grass = function(){
    
 
   function geocodeJSON(addrs, cb){
+    if(isArray(addrs)) addrs = JSON.stringify(addrs);
+    console.log(addrs);
     return postGeo(buildQuery(), addrs, cb); 
   }
 
