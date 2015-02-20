@@ -2,12 +2,21 @@ var restify = require('restify');
 
 var server = restify.createServer();
 
+var dummy = {
+  "type": "Point",
+  "coordinates": [-121.91, 37.88],
+  "properties": {
+    "name": "Mount Diablo"
+  }
+};
+
+               
 server.use(restify.CORS());
 
 server.post('/geocode', function(req, res, next){
   console.log("POST");
   req.pipe(process.stdout);
-  res.send('[{"lat":-37.81,"lon":121.16}]');
+  res.send(dummy);
  next(); 
 });
 
@@ -15,7 +24,7 @@ server.post('/geocode', function(req, res, next){
 server.get('/geocode/', function(req, res, next){
   console.log("GET");
   req.pipe(process.stdout); 
-  res.send('{"lat":37.81,"lon":-121.16}');
+  res.send(dummy);
   next();
 });
 
