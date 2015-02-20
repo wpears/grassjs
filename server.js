@@ -2,6 +2,7 @@ var restify = require('restify');
 
 var server = restify.createServer();
 
+server.use(restify.CORS());
 
 server.post('/geocode', function(req, res, next){
   console.log("POST");
