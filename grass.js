@@ -2,7 +2,8 @@ window.grass = function(){
 
   var endpoint = 'http://localhost:1337/geocode';
 
-  function geocode(addr, cb){
+  function geocode(addr, cb, options){
+    if(options.uri) return getGeo(addr, cb);
     return getGeo(buildQuery({addr:addr}), cb);
   }
    
@@ -24,7 +25,7 @@ window.grass = function(){
   } 
 
 
-  function postGeo(url, json, cb){
+  function postGeo(url, json, cb, options){
     var xhr = new XMLHttpRequest();
     xhr.open('POST', url);
 
